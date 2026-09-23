@@ -11,6 +11,12 @@ const createRequest = async (req, res) => {
             });
         }
 
+        if (!Number.isInteger(quantity) || quantity <= 0) {
+            return res.status(400).json({
+                message: "Quantity must be a positive integer"
+            });
+        }
+        
         // Find resource
         const resource = await Resource.findById(resourceId);
 
@@ -20,6 +26,17 @@ const createRequest = async (req, res) => {
             });
         }
 
+        if (
+            resource.availableUntil &&
+            resource.availableUntil < new Date()
+        ) {
+            resource.status = "expired";
+            await resource.save();
+
+            return res.status(400).json({
+                message: "This resource has expired"
+            });
+        }
         // Check availability
         if (resource.status !== "available") {
             return res.status(400).json({
@@ -37,6 +54,18 @@ const createRequest = async (req, res) => {
         if (resource.provider.toString() === req.user.id) {
             return res.status(400).json({
                 message: "You cannot request your own resource"
+            });
+        }
+
+        const existingRequest = await ResourceRequest.findOne({
+            resource: resourceId,
+            requester: req.user.id,
+            status: "pending"
+        });
+
+        if (existingRequest) {
+            return res.status(400).json({
+                message: "You already have a pending request for this resource"
             });
         }
 
@@ -64,6 +93,11 @@ const createRequest = async (req, res) => {
 
 const getMyRequests = async (req, res) => {
     try {
+
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
+
         const requests = await ResourceRequest.find({
             requester: req.user.id
         })
@@ -71,10 +105,19 @@ const getMyRequests = async (req, res) => {
                 "resource",
                 "title category location availableQuantity status"
             )
-            .sort({ createdAt: -1 });
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit);
+
+        const totalRequests = await ResourceRequest.countDocuments({
+            requester: req.user.id
+        });
 
         res.status(200).json({
-            count: requests.length,
+            page,
+            limit,
+            totalRequests,
+            totalPages: Math.ceil(totalRequests / limit),
             requests
         });
 
@@ -238,10 +281,53 @@ const rejectRequest = async (req, res) => {
     }
 };
 
+const cancelRequest = async (req, res) => {
+    try {
+        const request = await ResourceRequest.findById(req.params.id);
+
+        if (!request) {
+            return res.status(404).json({
+                message: "Request not found"
+            });
+        }
+
+        // Check request ownership
+        if (request.requester.toString() !== req.user.id) {
+            return res.status(403).json({
+                message: "You are not allowed to cancel this request"
+            });
+        }
+
+        // Only pending requests can be cancelled
+        if (request.status !== "pending") {
+            return res.status(400).json({
+                message: "Only pending requests can be cancelled"
+            });
+        }
+
+        request.status = "cancelled";
+
+        await request.save();
+
+        res.status(200).json({
+            message: "Resource request cancelled successfully",
+            request
+        });
+
+    } catch (error) {
+        console.error("Cancel request error:", error.message);
+
+        res.status(500).json({
+            message: "Server error"
+        });
+    }
+};
+
 module.exports = {
     createRequest,
     getMyRequests,
     getProviderRequests,
     acceptRequest,
-    rejectRequest
+    rejectRequest,
+    cancelRequest
 };

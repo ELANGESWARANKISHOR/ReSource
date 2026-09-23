@@ -56,9 +56,15 @@ const getResources = async (req, res) => {
     try {
         const { category, location, condition, search } = req.query;
 
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+
+        const skip = (page - 1) * limit;
+
         const filter = {
             status: "available",
-            availableQuantity: { $gt: 0 }
+            availableQuantity: { $gt: 0 },
+            availableUntil: { $gte: new Date() }
         };
 
         if (category) {
@@ -95,10 +101,18 @@ const getResources = async (req, res) => {
 
         const resources = await Resource.find(filter)
             .populate("provider", "name email")
-            .sort({ createdAt: -1 });
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit);
+
+        const totalResources = await Resource.countDocuments(filter);
+
 
         res.status(200).json({
-            count: resources.length,
+            page,
+            limit,
+            totalResources,
+            totalPages: Math.ceil(totalResources / limit),
             resources
         });
 
@@ -120,6 +134,14 @@ const getResourceById = async (req, res) => {
             return res.status(404).json({
                 message: "Resource not found"
             });
+        }
+
+        if (
+            resource.status === "available" &&
+            resource.availableUntil < new Date()
+        ) {
+            resource.status = "expired";
+            await resource.save();
         }
 
         res.status(200).json({
@@ -228,10 +250,39 @@ const deleteResource = async (req, res) => {
     }
 };
 
+const getMyResources = async (req, res) => {
+    try {
+        console.log("User ID:", req.user.id);
+
+        const resources = await Resource.find({
+            provider: req.user.id
+        })
+            .populate("provider", "name email")
+            .sort({ createdAt: -1 });
+
+        console.log("Resources found:", resources.length);
+
+        res.status(200).json({
+            count: resources.length,
+            resources
+        });
+
+    } catch (error) {
+        console.error("GET MY RESOURCES ERROR:");
+        console.error(error);
+
+        res.status(500).json({
+            message: "Server error",
+            error: error.message
+        });
+    }
+};
+
 module.exports = {
     createResource,
     getResources,
     getResourceById,
     updateResource,
-    deleteResource
+    deleteResource,
+    getMyResources
 };

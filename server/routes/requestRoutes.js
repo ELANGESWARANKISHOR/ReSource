@@ -5,17 +5,20 @@ const {
     getMyRequests,
     getProviderRequests,
     acceptRequest,
-    rejectRequest
+    rejectRequest,
+    cancelRequest,
 } = require("../controllers/requestController");
 
 const protect = require("../middleware/authMiddleware");
+const requireRole = require("../middleware/roleMiddleware");
 
 const router = express.Router();
 
-router.post("/", protect, createRequest);
-router.get("/my", protect, getMyRequests);
-router.get("/provider", protect, getProviderRequests);
-router.put("/:id/accept", protect, acceptRequest);
-router.put("/:id/reject", protect, rejectRequest);
+router.post("/", protect, requireRole("recipient"), createRequest);
+router.get("/my", protect, requireRole("recipient"), getMyRequests);
+router.get("/provider", protect, requireRole("provider"), getProviderRequests);
+router.put("/:id/accept", protect, requireRole("provider"), acceptRequest);
+router.put("/:id/reject", protect, requireRole("provider"), rejectRequest);
+router.put("/:id/cancel", protect, requireRole("recipient"), cancelRequest);
 
 module.exports = router;
