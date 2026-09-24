@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import ProviderDashboard from "./pages/ProviderDashboard";
 import RecipientDashboard from "./pages/RecipientDashboard";
@@ -8,41 +9,93 @@ import BrowseResources from "./pages/BrowseResources";
 import ResourceDetails from "./pages/ResourceDetails";
 import MyRequests from "./pages/MyRequests";
 import ManageRequests from "./pages/ManageRequests";
+import Register from "./pages/Register";
+
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Login />} />
+
+                <Route
+                    path="/"
+                    element={<LandingPage />}
+                />
+
+                <Route
+                    path="/login"
+                    element={<Login />}
+                />
+
+                <Route
+                    path="/register"
+                    element={<Register />}
+                />
 
                 <Route
                     path="/provider"
-                    element={<ProviderDashboard />}
+                    element={
+                        <ProtectedRoute role="provider">
+                            <ProviderDashboard />
+                        </ProtectedRoute>
+                    }
                 />
+
                 <Route
                     path="/provider/create-resource"
-                    element={<CreateResource />}
+                    element={
+                        <ProtectedRoute role="provider">
+                            <CreateResource />
+                        </ProtectedRoute>
+                    }
                 />
+
+                <Route
+                    path="/provider/requests"
+                    element={
+                        <ProtectedRoute role="provider">
+                            <ManageRequests />
+                        </ProtectedRoute>
+                    }
+                />
+
                 <Route
                     path="/recipient"
-                    element={<RecipientDashboard />}
+                    element={
+                        <ProtectedRoute role="recipient">
+                            <RecipientDashboard />
+                        </ProtectedRoute>
+                    }
                 />
-                <Route
-                    path="/resources"
-                    element={<BrowseResources />}
-                />     
-                <Route
-                    path="/resources/:id"
-                    element={<ResourceDetails />}
-                />  
+
                 <Route
                     path="/recipient/requests"
-                    element={<MyRequests />}
-                />    
+                    element={
+                        <ProtectedRoute role="recipient">
+                            <MyRequests />
+                        </ProtectedRoute>
+                    }
+                />
+
                 <Route
-                  path="/provider/requests"
-                  element={<ManageRequests />}
-                /> 
+                    path="/resources"
+                    element={
+                        <ProtectedRoute>
+                            <BrowseResources />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/resources/:id"
+                    element={
+                        <ProtectedRoute>
+                            <ResourceDetails />
+                        </ProtectedRoute>
+                    }
+                />
+
             </Routes>
         </BrowserRouter>
     );

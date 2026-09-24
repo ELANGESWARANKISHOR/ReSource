@@ -20,6 +20,11 @@ function Login() {
 
             localStorage.setItem("token", response.data.token);
 
+            localStorage.setItem(
+                "user",
+                JSON.stringify(response.data.user)
+            );
+            
             const role = response.data.user.role;
 
         if (role === "provider") {
@@ -27,7 +32,7 @@ function Login() {
         } else if (role === "recipient") {
             navigate("/recipient");
         }
-        
+
         } catch (error) {
             setMessage(
                 error.response?.data?.message || "Login failed"
@@ -65,6 +70,10 @@ function Login() {
             </form>
 
             {message && <p>{message}</p>}
+
+            <button onClick={() => navigate("/register")}>
+                Create an Account
+            </button>
         </div>
     );
 }
