@@ -24,14 +24,14 @@ function Login() {
                 "user",
                 JSON.stringify(response.data.user)
             );
-            
+
             const role = response.data.user.role;
 
-        if (role === "provider") {
-            navigate("/provider");
-        } else if (role === "recipient") {
-            navigate("/recipient");
-        }
+            if (role === "provider") {
+                navigate("/provider");
+            } else if (role === "recipient") {
+                navigate("/recipient");
+            }
 
         } catch (error) {
             setMessage(
@@ -41,39 +41,95 @@ function Login() {
     };
 
     return (
-        <div>
-            <h1>ReSource</h1>
-            <h2>Login</h2>
+        <div className="auth-page">
 
-            <form onSubmit={handleLogin}>
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
+            <div className="auth-card">
 
-                <br />
+                <div className="auth-logo">
+                    <span>♻</span>
+                    ReSource
+                </div>
 
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
+                <div className="auth-header">
+                    <h1>Welcome back</h1>
 
-                <br />
+                    <p>
+                        Sign in to continue to your ReSource account.
+                    </p>
+                </div>
 
-                <button type="submit">
-                    Login
+                <form
+                    className="auth-form"
+                    onSubmit={handleLogin}
+                >
+
+                    <div className="form-group">
+                        <label>Email</label>
+
+                        <input
+                            type="email"
+                            placeholder="Enter your email"
+                            value={email}
+                            onChange={(e) =>
+                                setEmail(e.target.value)
+                            }
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Password</label>
+
+                        <input
+                            type="password"
+                            placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) =>
+                                setPassword(e.target.value)
+                            }
+                            required
+                        />
+                    </div>
+
+                    {message && (
+                        <div className="auth-error">
+                            {message}
+                        </div>
+                    )}
+
+                    <button
+                        className="auth-submit"
+                        type="submit"
+                    >
+                        Login
+                    </button>
+
+                </form>
+
+                <div className="auth-divider">
+                    <span>or</span>
+                </div>
+
+                <p className="auth-footer">
+                    Don't have an account?
+                </p>
+
+                <button
+                    className="auth-register"
+                    onClick={() => navigate("/register")}
+                >
+                    Create an Account
                 </button>
-            </form>
 
-            {message && <p>{message}</p>}
+                <button
+                    className="back-home"
+                    onClick={() => navigate("/")}
+                >
+                    ← Back to Home
+                </button>
 
-            <button onClick={() => navigate("/register")}>
-                Create an Account
-            </button>
+            </div>
+
         </div>
     );
 }

@@ -29,7 +29,10 @@ function Register() {
         setError("");
 
         try {
-            const response = await api.post("/auth/register", formData);
+            const response = await api.post(
+                "/auth/register",
+                formData
+            );
 
             setMessage(response.data.message);
 
@@ -46,78 +49,132 @@ function Register() {
     };
 
     return (
-        <div>
-            <h1>Register</h1>
+        <div className="auth-page">
 
-            <form onSubmit={handleRegister}>
+            <div className="auth-card">
 
-                <div>
-                    <label>Name</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                    />
+                <div className="auth-logo">
+                    <span>♻</span>
+                    ReSource
                 </div>
 
-                <div>
-                    <label>Email</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
+                <div className="auth-header">
+                    <h1>Create your account</h1>
+
+                    <p>
+                        Join ReSource and start sharing useful
+                        resources with your community.
+                    </p>
                 </div>
 
-                <div>
-                    <label>Password</label>
-                    <input
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+                <form
+                    className="auth-form"
+                    onSubmit={handleRegister}
+                >
 
-                <div>
-                    <label>Role</label>
+                    <div className="form-group">
+                        <label>Name</label>
 
-                    <select
-                        name="role"
-                        value={formData.role}
-                        onChange={handleChange}
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Enter your name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Email</label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Password</label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Create a password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Account Type</label>
+
+                        <select
+                            className="auth-select"
+                            name="role"
+                            value={formData.role}
+                            onChange={handleChange}
+                        >
+                            <option value="recipient">
+                                Recipient
+                            </option>
+
+                            <option value="provider">
+                                Provider
+                            </option>
+                        </select>
+                    </div>
+
+                    {message && (
+                        <div className="auth-success">
+                            {message}
+                        </div>
+                    )}
+
+                    {error && (
+                        <div className="auth-error">
+                            {error}
+                        </div>
+                    )}
+
+                    <button
+                        className="auth-submit"
+                        type="submit"
                     >
-                        <option value="recipient">
-                            Recipient
-                        </option>
+                        Create Account
+                    </button>
 
-                        <option value="provider">
-                            Provider
-                        </option>
-                    </select>
+                </form>
+
+                <div className="auth-divider">
+                    <span>or</span>
                 </div>
 
-                <button type="submit">
-                    Register
+                <p className="auth-footer">
+                    Already have an account?
+                </p>
+
+                <button
+                    className="auth-register"
+                    onClick={() => navigate("/login")}
+                >
+                    Sign In
                 </button>
 
-            </form>
+                <button
+                    className="back-home"
+                    onClick={() => navigate("/")}
+                >
+                    ← Back to Home
+                </button>
 
-            {message && <p>{message}</p>}
-            {error && <p>{error}</p>}
+            </div>
 
-            <p>
-                Already have an account?
-            </p>
-
-            <button onClick={() => navigate("/")}>
-                Go to Login
-            </button>
         </div>
     );
 }
