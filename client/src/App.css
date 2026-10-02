@@ -1497,3 +1497,141 @@ button {
         flex-direction: column;
     }
 }
+
+/* =========================
+   CREATE RESOURCE
+========================= */
+
+.form-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    gap: 25px;
+
+    margin-bottom: 30px;
+}
+
+.form-page-header h1 {
+    margin-bottom: 8px;
+
+    font-size: 32px;
+}
+
+.form-page-header > div > p:last-child {
+    color: #748078;
+
+    font-size: 14px;
+}
+
+.resource-form-card {
+    max-width: 900px;
+
+    padding: 32px;
+
+    background: white;
+
+    border: 1px solid #e1e9e4;
+    border-radius: 14px;
+}
+
+.resource-form-heading {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    padding-bottom: 25px;
+
+    margin-bottom: 28px;
+
+    border-bottom: 1px solid #edf1ee;
+}
+
+.form-heading-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #e8f4ec;
+
+    font-size: 21px;
+}
+
+.resource-form-heading h2 {
+    margin-bottom: 5px;
+
+    font-size: 19px;
+}
+
+.resource-form-heading p {
+    color: #748078;
+
+    font-size: 13px;
+}
+
+.resource-form {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 22px;
+}
+
+.resource-form .full-width {
+    grid-column: 1 / -1;
+}
+
+.resource-form textarea {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border: 1px solid #d6e0da;
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    resize: vertical;
+
+    outline: none;
+}
+
+.resource-form textarea:focus {
+    border-color: #176b43;
+}
+
+.resource-form input {
+    width: 100%;
+}
+
+.resource-form small {
+    color: #89938d;
+
+    font-size: 11px;
+}
+
+.form-message {
+    margin-bottom: 20px;
+}
+
+.resource-form-actions {
+    grid-column: 1 / -1;
+
+    display: flex;
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    padding-top: 10px;
+
+    margin-top: 5px;
+
+    border-top: 1px solid #edf1ee;
+}
