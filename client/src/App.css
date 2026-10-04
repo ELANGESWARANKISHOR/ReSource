@@ -1635,3 +1635,311 @@ button {
 
     border-top: 1px solid #edf1ee;
 }
+
+.browse-page {
+    min-height: 100vh;
+    background: #f5f8f6;
+}
+
+
+/* Header */
+
+.browse-header {
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 5%;
+
+    background: white;
+
+    border-bottom: 1px solid #e1e9e4;
+}
+
+.browse-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #176b43;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.browse-logo span {
+    font-size: 23px;
+}
+
+.browse-nav-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+}
+
+.browse-nav-button {
+    padding: 9px 13px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: transparent;
+
+    color: #68756e;
+
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.browse-nav-button:hover {
+    background: #e8f4ec;
+    color: #176b43;
+}
+
+
+/* Main */
+
+.browse-main {
+    max-width: 1250px;
+
+    margin: 0 auto;
+
+    padding: 50px 5%;
+}
+
+
+/* Page Header */
+
+.browse-page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 35px;
+}
+
+.browse-page-header h1 {
+    margin-bottom: 8px;
+
+    font-size: 34px;
+}
+
+.browse-page-header p:last-child {
+    color: #748078;
+
+    font-size: 14px;
+}
+
+
+/* Resource Grid */
+
+.browse-resource-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 22px;
+}
+
+
+/* Resource Card */
+
+.browse-resource-card {
+    display: flex;
+    flex-direction: column;
+
+    padding: 24px;
+
+    background: white;
+
+    border: 1px solid #e1e9e4;
+    border-radius: 13px;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+
+.browse-resource-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 14px 35px rgba(30, 70, 50, 0.09);
+}
+
+
+/* Card Header */
+
+.browse-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+}
+
+.browse-resource-icon {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #e8f4ec;
+
+    font-size: 20px;
+}
+
+
+/* Card Content */
+
+.browse-resource-card h2 {
+    margin-bottom: 7px;
+
+    font-size: 19px;
+
+    color: #26352d;
+}
+
+.browse-category {
+    display: inline-block;
+
+    margin-bottom: 14px;
+
+    color: #176b43;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.browse-description {
+    min-height: 60px;
+
+    margin-bottom: 20px;
+
+    color: #748078;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* Resource Details */
+
+.browse-resource-details {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 14px;
+
+    padding: 17px 0;
+
+    border-top: 1px solid #edf1ee;
+    border-bottom: 1px solid #edf1ee;
+}
+
+.browse-resource-details div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+.browse-resource-details div:last-child {
+    grid-column: 1 / -1;
+}
+
+.browse-resource-details span {
+    color: #89938d;
+
+    font-size: 11px;
+}
+
+.browse-resource-details strong {
+    color: #334039;
+
+    font-size: 13px;
+}
+
+
+/* View Button */
+
+.browse-view-button {
+    width: 100%;
+
+    margin-top: 18px;
+
+    padding: 11px;
+
+    border: 1px solid #176b43;
+    border-radius: 8px;
+
+    background: #176b43;
+    color: white;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.browse-view-button:hover {
+    background: #125936;
+}
+
+
+/* Responsive */
+
+@media (max-width: 1000px) {
+
+    .browse-resource-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+
+    .browse-main {
+        padding: 35px 20px;
+    }
+
+    .browse-page-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .browse-resource-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .browse-header {
+        padding: 0 20px;
+    }
+
+    .browse-nav-button {
+        font-size: 12px;
+
+        padding: 8px;
+    }
+
+    .browse-logo {
+        font-size: 19px;
+    }
+}
