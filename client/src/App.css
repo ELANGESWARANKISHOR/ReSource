@@ -1943,3 +1943,334 @@ button {
         font-size: 19px;
     }
 }
+
+/* =========================
+   RESOURCE DETAILS
+========================= */
+
+.details-page {
+    min-height: 100vh;
+    background: #f5f8f6;
+}
+
+.details-main {
+    max-width: 1150px;
+
+    margin: 0 auto;
+
+    padding: 40px 5%;
+}
+
+.details-back {
+    margin-bottom: 25px;
+
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    color: #176b43;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.details-back:hover {
+    text-decoration: underline;
+}
+
+
+/* Layout */
+
+.details-layout {
+    display: grid;
+
+    grid-template-columns: 1.35fr 0.85fr;
+
+    gap: 25px;
+
+    align-items: start;
+}
+
+
+/* Resource Information */
+
+.resource-info-card,
+.request-card {
+    padding: 30px;
+
+    background: white;
+
+    border: 1px solid #e1e9e4;
+    border-radius: 14px;
+}
+
+.details-card-top {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+.details-resource-icon {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #e8f4ec;
+
+    font-size: 27px;
+}
+
+.details-category {
+    display: inline-block;
+
+    margin-bottom: 8px;
+
+    color: #176b43;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.resource-info-card h1 {
+    margin-bottom: 14px;
+
+    color: #26352d;
+
+    font-size: 30px;
+}
+
+.details-description {
+    margin-bottom: 30px;
+
+    color: #68756e;
+
+    line-height: 1.7;
+
+    font-size: 14px;
+}
+
+
+/* Information Grid */
+
+.details-info-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+
+    padding: 20px 0;
+
+    border-top: 1px solid #edf1ee;
+    border-bottom: 1px solid #edf1ee;
+}
+
+.details-info-item {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.details-info-item span {
+    color: #89938d;
+
+    font-size: 11px;
+}
+
+.details-info-item strong {
+    color: #334039;
+
+    font-size: 14px;
+}
+
+
+/* Availability */
+
+.details-availability {
+    margin-top: 25px;
+}
+
+.details-availability > span {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #68756e;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.availability-bar {
+    height: 8px;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background: #e8eeea;
+}
+
+.availability-progress {
+    height: 100%;
+
+    border-radius: 20px;
+
+    background: #176b43;
+}
+
+.details-availability small {
+    display: block;
+
+    margin-top: 8px;
+
+    color: #89938d;
+
+    font-size: 11px;
+}
+
+
+/* Request Card */
+
+.request-card {
+    position: sticky;
+
+    top: 25px;
+}
+
+.request-card-header {
+    display: flex;
+
+    gap: 13px;
+
+    align-items: center;
+
+    padding-bottom: 22px;
+
+    margin-bottom: 22px;
+
+    border-bottom: 1px solid #edf1ee;
+}
+
+.request-icon {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: #e8f4ec;
+
+    font-size: 19px;
+}
+
+.request-card-header h2 {
+    margin-bottom: 4px;
+
+    font-size: 18px;
+}
+
+.request-card-header p {
+    color: #748078;
+
+    font-size: 12px;
+}
+
+.request-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+.request-form small {
+    color: #89938d;
+
+    font-size: 11px;
+}
+
+.request-submit {
+    width: 100%;
+}
+
+
+/* Loading / Error */
+
+.details-loading,
+.details-error {
+    max-width: 600px;
+
+    margin: 100px auto;
+
+    padding: 40px;
+
+    text-align: center;
+
+    background: white;
+
+    border: 1px solid #e1e9e4;
+    border-radius: 14px;
+}
+
+.details-error h2 {
+    margin-bottom: 10px;
+}
+
+.details-error p {
+    margin-bottom: 25px;
+
+    color: #b42318;
+}
+
+
+/* Responsive */
+
+@media (max-width: 850px) {
+
+    .details-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .request-card {
+        position: static;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .details-main {
+        padding: 30px 20px;
+    }
+
+    .resource-info-card,
+    .request-card {
+        padding: 22px;
+    }
+
+    .resource-info-card h1 {
+        font-size: 26px;
+    }
+
+    .details-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
